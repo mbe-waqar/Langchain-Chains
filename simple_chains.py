@@ -21,3 +21,6 @@ result = chain.invoke({"input": "France"})
 print(result)  # Output: Paris
 print(type(result))  # Output: <class 'str'>
 
+chain.get_graph().print_ascii()
+# This will print the graph of the chain in ASCII format
+
