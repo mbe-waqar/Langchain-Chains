@@ -1,0 +1,31 @@
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv()
+
+prompt1 = PromptTemplate(
+    template="What is the capital of {input}?",
+    input_variables=["input"]
+)
+
+prompt2 = PromptTemplate(
+    template="What is the population of {text}?",
+    input_variables=["text"]
+)
+
+model = ChatOpenAI()
+
+parser = StrOutputParser()
+
+chain = prompt1 | model | parser | prompt2 | model | parser
+
+result = chain.invoke({"input": "France"})
+
+print(result)  # Output: Paris
+print(type(result))  # Output: <class 'str'>
+
+chain.get_graph().print_ascii()
+# This will print the graph of the chain in ASCII format
+
